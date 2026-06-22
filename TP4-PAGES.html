@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TP4 - Modelo Relacional | Diego Juliani</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        /* Estilos de la Portada Académica */
+        .portada {
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            padding: 30px;
+            width: 100%;
+            max-width: 900px;
+            border-top: 5px solid #2c3e50;
+        }
+        .portada h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-top: 0;
+            font-size: 24px;
+        }
+        .portada h2 {
+            color: #3498db;
+            text-align: center;
+            font-size: 18px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        .datos-academicos {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            font-size: 15px;
+        }
+        .datos-academicos p {
+            margin: 0;
+        }
+        .etiqueta {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        /* Estilos del Visualizador */
+        .contenedor-tablas {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            width: 100%;
+            max-width: 1200px;
+        }
+        .instrucciones {
+            width: 100%;
+            max-width: 900px;
+            text-align: center;
+            color: #555;
+            font-size: 15px;
+            background: #e9ecef;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #3498db;
+        }
+        .tabla-container {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 15px;
+            min-width: 300px;
+            flex-grow: 1;
+        }
+        h3 {
+            text-align: center;
+            color: #2c3e50;
+            margin-top: 0;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+            font-size: 14px;
+        }
+        th {
+            background-color: #2c3e50;
+            color: white;
+        }
+        tr {
+            transition: background-color 0.2s, transform 0.1s;
+            cursor: pointer;
+        }
+        tr:hover {
+            background-color: #f1f2f6;
+        }
+        .highlight {
+            background-color: #ffeaa7 !important;
+            font-weight: bold;
+            color: #d35400;
+        }
+        
+        @media (max-width: 600px) {
+            .datos-academicos {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="portada">
+        <h1>Trabajo Práctico N° 4 - El Modelo Relacional</h1>
+        <h2>Resolución Punto 19: Mini Esquema Relacional para Biblioteca</h2>
+        
+        <div class="datos-academicos">
+            <p><span class="etiqueta">Institución:</span> ISFDYT Nº 49</p>
+            <p><span class="etiqueta">Carrera:</span> Tecnicatura Superior en Desarrollo de Software</p>
+            <p><span class="etiqueta">Materia:</span> Administración y Gestión de Base de Datos</p>
+            <p><span class="etiqueta">Profesora:</span> Muscarelli Yanina</p>
+            <p><span class="etiqueta">Alumno:</span> Juliani Diego Hernán</p>
+            <p><span class="etiqueta">Fecha de entrega:</span> 22 de junio de 2026</p>
+        </div>
+    </div>
+
+    <div class="instrucciones">
+        <strong>Interactividad:</strong> Pasá el mouse sobre cualquier registro en las tablas de abajo para visualizar cómo la <em>Integridad Referencial</em> (las Claves Foráneas) conecta la información del Lector, el Préstamo, el Libro y su Autor.
+    </div>
+
+    <div class="contenedor-tablas">
+        
+        <div class="tabla-container">
+            <h3>LECTOR</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>id_lector (PK)</th>
+                        <th>nombre_lector</th>
+                        <th>nro_afiliado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-type="lector" data-id="301"><td>301</td><td>Raquel</td><td>AF-9021</td></tr>
+                    <tr data-type="lector" data-id="302"><td>302</td><td>Irina</td><td>AF-9022</td></tr>
+                    <tr data-type="lector" data-id="303"><td>303</td><td>Dingo</td><td>AF-9023</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="tabla-container">
+            <h3>AUTOR</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>id_autor (PK)</th>
+                        <th>nombre_autor</th>
+                        <th>nacionalidad</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-type="autor" data-id="1"><td>1</td><td>Jorge Luis Borges</td><td>Argentina</td></tr>
+                    <tr data-type="autor" data-id="2"><td>2</td><td>Adolfo Bioy Casares</td><td>Argentina</td></tr>
+                    <tr data-type="autor" data-id="3"><td>3</td><td>Julio Cortázar</td><td>Argentina</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="tabla-container">
+            <h3>LIBRO</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>id_libro (PK)</th>
+                        <th>titulo</th>
+                        <th>año_publicacion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-type="libro" data-id="101"><td>101</td><td>El Aleph</td><td>1949</td></tr>
+                    <tr data-type="libro" data-id="102"><td>102</td><td>Rayuela</td><td>1963</td></tr>
+                    <tr data-type="libro" data-id="103"><td>103</td><td>Seis problemas para don Isidro</td><td>1942</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="tabla-container">
+            <h3>AUTORIA</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>id_libro (PK)(FK)</th>
+                        <th>id_autor (PK)(FK)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-type="autoria" data-libro="101" data-autor="1"><td>101</td><td>1</td></tr>
+                    <tr data-type="autoria" data-libro="102" data-autor="3"><td>102</td><td>3</td></tr>
+                    <tr data-type="autoria" data-libro="103" data-autor="1"><td>103</td><td>1</td></tr>
+                    <tr data-type="autoria" data-libro="103" data-autor="2"><td>103</td><td>2</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="tabla-container">
+            <h3>PRESTAMO</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>id_prestamo (PK)</th>
+                        <th>fecha_retiro</th>
+                        <th>fecha_devolucion</th>
+                        <th>id_libro (FK)</th>
+                        <th>id_lector (FK)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-type="prestamo" data-libro="101" data-lector="301"><td>5001</td><td>2026-06-20</td><td>2026-06-25</td><td>101</td><td>301</td></tr>
+                    <tr data-type="prestamo" data-libro="102" data-lector="302"><td>5002</td><td>2026-06-22</td><td>2026-06-29</td><td>102</td><td>302</td></tr>
+                    <tr data-type="prestamo" data-libro="103" data-lector="303"><td>5003</td><td>2026-06-22</td><td>NULL</td><td>103</td><td>303</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <script>
+        const rows = document.querySelectorAll('tbody tr');
+
+        rows.forEach(row => {
+            row.addEventListener('mouseenter', function() {
+                const type = this.getAttribute('data-type');
+                
+                this.classList.add('highlight');
+
+                if (type === 'lector') {
+                    const idLector = this.getAttribute('data-id');
+                    document.querySelectorAll(`tr[data-type="prestamo"][data-lector="${idLector}"]`).forEach(prestamoRow => {
+                        prestamoRow.classList.add('highlight');
+                        const idLibro = prestamoRow.getAttribute('data-libro');
+                        const libroRow = document.querySelector(`tr[data-type="libro"][data-id="${idLibro}"]`);
+                        if(libroRow) libroRow.classList.add('highlight');
+                    });
+                }
+
+                if (type === 'autor') {
+                    const idAutor = this.getAttribute('data-id');
+                    document.querySelectorAll(`tr[data-type="autoria"][data-autor="${idAutor}"]`).forEach(autoriaRow => {
+                        autoriaRow.classList.add('highlight');
+                        const idLibro = autoriaRow.getAttribute('data-libro');
+                        document.querySelector(`tr[data-type="libro"][data-id="${idLibro}"]`).classList.add('highlight');
+                    });
+                }
+
+                if (type === 'libro') {
+                    const idLibro = this.getAttribute('data-id');
+                    document.querySelectorAll(`tr[data-type="autoria"][data-libro="${idLibro}"]`).forEach(autoriaRow => {
+                        autoriaRow.classList.add('highlight');
+                        const idAutor = autoriaRow.getAttribute('data-autor');
+                        document.querySelector(`tr[data-type="autor"][data-id="${idAutor}"]`).classList.add('highlight');
+                    });
+                    document.querySelectorAll(`tr[data-type="prestamo"][data-libro="${idLibro}"]`).forEach(prestamoRow => {
+                        prestamoRow.classList.add('highlight');
+                        const idLector = prestamoRow.getAttribute('data-lector');
+                        const lectorRow = document.querySelector(`tr[data-type="lector"][data-id="${idLector}"]`);
+                        if(lectorRow) lectorRow.classList.add('highlight');
+                    });
+                }
+
+                if (type === 'autoria') {
+                    const idLibro = this.getAttribute('data-libro');
+                    const idAutor = this.getAttribute('data-autor');
+                    document.querySelector(`tr[data-type="libro"][data-id="${idLibro}"]`).classList.add('highlight');
+                    document.querySelector(`tr[data-type="autor"][data-id="${idAutor}"]`).classList.add('highlight');
+                }
+
+                if (type === 'prestamo') {
+                    const idLibro = this.getAttribute('data-libro');
+                    const idLector = this.getAttribute('data-lector');
+                    
+                    const libroRow = document.querySelector(`tr[data-type="libro"][data-id="${idLibro}"]`);
+                    if(libroRow) libroRow.classList.add('highlight');
+                    
+                    const lectorRow = document.querySelector(`tr[data-type="lector"][data-id="${idLector}"]`);
+                    if(lectorRow) lectorRow.classList.add('highlight');
+                }
+            });
+
+            row.addEventListener('mouseleave', function() {
+                rows.forEach(r => r.classList.remove('highlight'));
+            });
+        });
+    </script>
+</body>
+</html>
